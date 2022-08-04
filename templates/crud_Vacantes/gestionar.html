@@ -1,0 +1,219 @@
+{% extends "index.html" %}
+{% block title %} GESTIONAR LA VACANTE {% endblock %}
+{% block contenido %} 
+{% load bootstrap %}
+
+<style>
+
+	body{
+		background-color: #ebeff5;
+	}
+
+
+	#total-orders{
+		background-color: #4cb4c7;
+	}
+
+
+	#orders-delivered{
+		background-color: #7abecc;
+	}
+
+	#orders-pending{
+		background-color: #7CD1C0;
+	}
+
+
+</style>
+
+
+
+
+
+	<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#demo">DETALLE DE LA VACANTE <strong>DDR#{{DDR}}</strong></button>
+	<div id="demo" class="collapse">
+		<br>
+		<div class="container-fluid">
+		<div class="row">
+	<div class="col-md">
+		<div class="card card-body ">
+			<h5>Información Contacto:</h5>
+
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">{{customer.Cliente | bootstrap }}</a>
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">{{customer.Ciudad | bootstrap}}</a>
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">{{customer.contacto | bootstrap}}</a>
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">{{customer.Ciudad | bootstrap}}</a>
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">DDR: {{customer.id | title}}</a>
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="">Email: {{customer.Email | title}}</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+            
+			<h5>Información Vacante</h5>
+			<a>Cargo Solicit: {{customer.CargoSolicitado | title }}</a>
+			<a>Ciudad______: {{customer.Ciudad | title}}</a>
+			<a>Genero______: {{customer.Genero | title}}</a>
+			<a>Carrera______: {{customer.Educacion | title}}</a>
+			<a>Area_________: {{customer.AreaFormacion | title}}</a>
+			<a>Pase_________: {{customer.Pase | title}}</a>
+			<a>experiencia__: {{customer.MesesExperiencia | title}}_meses</a>
+			<a>Horario______: {{customer.Horario | title}}</a>
+			<a>Presencial___: {{customer.Presencialidad | title}}</a>
+			<a>Sitio Labor__: {{customer.SitioLabor | title}}</a>
+			<a type="number">Salario______: {{customer.Salario | title}}</a>
+			<a>Bonos_______: {{customer.Bonos | title}}</a>
+			<a>Beneficios___: {{customer.SalarioEmocional | title}}</a>
+			<a>TipoContrato: {{customer.TipoContrato | title}}</a>
+			
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Especificacion del Cargo</h5>			
+			<a class="btn-sm">Conocimiento Especifico: {{customer.ConocimientoEspecifico}}</a>
+			<a class="btn-sm">Notas Especiales____________: {{customer.NotaEspecial}}</a>
+			
+		</div>
+	</div>
+		</div>
+		</div>
+	</div>
+
+
+<!--******************************FILTRO AVANZADO FILTERS.PY**************************-->
+<button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#demo2">FILTRO DE BUSQUEDA </button>
+<div id="demo2" class="#">
+
+	<br>
+	<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get" class="form form-inline">	
+						
+				{{myFilter.form | bootstrap }}	 
+				
+
+			<!-- 	<button class="btn btn-primary" type="submit" >FILTRARRRRRRRRRRRRRRR</button> -->
+		    	<input class="btn btn-primary" type="submit">FILTRAR</input>
+		  	</form>
+
+		</div>
+	</div>	
+	</div>
+	
+	
+
+<br>
+
+
+<!--****************************RESULTADO DEL FILTRO**********************-->
+
+
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+
+			<form method="POST" action="" > 
+				{% csrf_token %}
+
+			<div class="card-header row" >
+				<!--<h4 class="card-title" >Gestion de Vacantes</h4> -->	
+				<div class="col-sm-4">
+					<button class="btn btn-primary" type="submit" name="reclut">Seleccionar-xxx</button>	
+				</div>	
+
+				<div class="col-sm-8" align="right">
+					<button class="btn btn-transparent" type="submit" name="wts">	
+					<img src="{{MEDIA_URL}}/imagenes/whatsapp.gif" width="50" type="submit" >
+					</button>	
+				</div>	
+
+				<!-- <div class="col-sm-8" align="right" >
+					<a href="{% url 'candidatocontactabilidad' %}" > 
+						<a href="#" >
+						<img src="{{MEDIA_URL}}/imagenes/whatsapp.gif" width="50" value="{{DDR}}" name="edf" type="submit" >	
+					</a>	
+					</div>-->				
+			</div>
+			
+<!--****************************fin RESULTADO DEL FILTRO**********************-->
+	
+
+		
+			   
+				<table id="example2" class="table table-stri table-hover" style="background-color: black;">
+					<thead class="table-success" >
+						<tr style="text-align:left">
+							<th style="width:2%">id</th>
+							<th>Nombres_Apellidos</th>
+							<th>Ciudad</th>                    
+							<th>Puesto_deseado</th>
+							<th>Educacion</th>
+							<th style="width:10%">estado</th>
+							<th>Hv</th>                    
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+
+
+						{% for order in myFilter.qs %}
+						<tr style="color:rgb(0, 255, 0)">
+
+							<td> 
+								{% if event.approved %}
+								<div class="form-check">
+								<input class="form-check-input" type="checkbox" checked = "checked" name="boxes" value={{ order.id }} >
+								</div>
+								{% else %}
+								<div class="form-check">
+								<input class="form-check-input" type="checkbox" name="boxes" value={{ order.id }} >
+								</div>
+								{% endif %}
+							<td> 
+							   <a href="#" style="color:rgb(0, 255, 0)">{{ order.Nombres_Apellidos | title}}</a> 
+							</td> 
+							<td> {{ order.Ciudad | title}}</td>   
+							<td> {{ order.Puesto_deseado | title }}</td>
+							<td> {{ order.Educacion | title}}</td>  
+							<td> {{ order.estado | title}}</td> 
+							<td>
+								{% if order.Curriculum_Hv %}
+								<img src="{{ campo.Curriculum_Hv.url }}" height="20" />  
+								{% endif %}                  
+							</td>
+													
+							<td><a name="" id="" class="btn btn-primary btn-circle btn-sm" href="#"  role="button">Editar</a>
+								| 
+								<a name="" id="" class="btn btn-danger btn-circle btn-sm" href="#"  role="button">Borrar</a>                   
+							</td> 
+						</tr>
+						{% endfor %}  
+
+					</tbody>
+				</table>        
+			</form> 
+
+
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+

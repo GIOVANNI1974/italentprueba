@@ -1,0 +1,167 @@
+
+{% extends "index.html" %}
+{% block title %} Directorio {% endblock %}
+{% block contenido %} 
+ 
+
+    <div>
+    <a name="" id="" class="btn btn-success" href="{% url 'contactocrear' %}" role="button">Agregar Nuevo Contacto</a>
+    {% include 'Crud_Contactos/form.html' %} 
+
+ 
+    </div>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Listado General de Contactos</h4>  
+    </div>
+    <div class="table-responsive">
+            <table id="example2" class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Nombre</th>
+                        <th>Cargo</th>
+                        <th>celular</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for campo in contactos %}
+                    <tr class="header">
+                        
+                        <td>{{ campo.Empresa}}</td>   
+                        <td>{{ campo.Nombre}}</td>  
+                        <td>{{ campo.Cargo}}</td>  
+                        <td>{{ campo.celular}}</td> 
+                        <td>{{ campo.Correo}}</td> 
+                                                                
+                        <td><a name="" id="" class="badge bg-primary" href="{% url 'contactoeditar' campo.id%}"  role="button" style="font-size:10px;">Editar</a>
+                            | 
+                            <a name="" id="" class="badge bg-danger" href="{% url 'contactoeliminar' campo.id %}"  role="button" style="font-size:10px;" onclick="return confirm('desea Continuar?')" >Borrar</a>  
+                                          
+                        </td> 
+                    </tr>
+                    {% endfor %}  
+                </tbody>
+            </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+
+  
+  {% endblock %}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+{% block jsadicional %}
+<script>
+ $(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#example2 thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#example2 thead');    
+ 
+    var table = $('#example2').DataTable({
+        "language": {
+            "lengthMenu": "_MENU_ registros"
+            },
+        orderCellsTop: true,
+        fixedHeader: true,
+        pageLength: 10,
+         // configuracion de los check boxes
+        columnDefs: [{
+            targets: 0,             
+                    
+        }],
+        // fin configuracion de los check boxes
+
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns([0,1,2,3,4])
+                .eq(0)
+                .each(function (colIdx) {
+                    // Set the header cell to contain the input element
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+ 
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('keyup change', function (e) {
+                            e.stopPropagation();
+ 
+                            // Get the search value
+                            $(this).attr('title', $(this).val());
+                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+ 
+                            var cursorPosition = this.selectionStart;
+                            // Search the column for that value
+                            api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+ 
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+        },
+    });
+    var newSearch = $("#example2").DataTable();
+    $("#search").keyup(function(){
+        newSearch.search($(this).val()).draw();
+    })
+
+    //SCRIPT para tomar desde el check el valor de ID*************************
+   // $('#myform').on('submit', function(e){
+  
+    // FIN para tomar el valor de ID************************
+
+});  
+</script>
+
+
+
+
+
+{% endblock %}

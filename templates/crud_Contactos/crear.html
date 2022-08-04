@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% block title %} CREAR CONTACTO {% endblock %}
+{% block contenido %} 
+
+       
+{% include 'Crud_Contactos/form.html' %}      
+
+{% endblock %}
+
+
+
+{% block jsadicional %}
+<script type="text/javascript">
+    $(function() {
+        $('#ModalContactos').modal('show');
+    });
+</script>
+{% endblock %}

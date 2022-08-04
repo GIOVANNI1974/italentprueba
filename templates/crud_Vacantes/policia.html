@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block title %} Antecedentes {% endblock %}
+{% block contenido %} 
+
+<httpProtocol>
+    <customHeaders>
+      <add name="X-Frame-Options" value="SAMEORIGIN" />
+    </customHeaders>
+  </httpProtocol>
+ 
+    <iframe height=100% width=100% src="https://antecedentes.policia.gov.co:7005/WebJudicial/antecedentes.xhtml"></iframe>
+   
+       
+ 
+{% endblock %}
+
+abc

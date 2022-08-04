@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block title %} CREAR VACANTE {% endblock %}
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">CREAR VACANTE</h4>  
+    </div>
+    <div class="card-body">         
+        <div class="card">
+       
+            <h2>Seleccione el Cliente</h2>
+            <form class="uniForm col-md-8" method="post" action="" enctype="multipart/form-data" > 
+                {% csrf_token %}  
+                <div class="form-group col-md-8">
+                    <select name="Cliente" class="form-select form-control custom-select" placeholder="Cliente" required="" id="id_Cliente"> 
+                    <option value={{formulariovc.Cliente}}</option>
+
+                    </select>  
+                                
+                </div>
+
+                <div class="modal-footer col-md-10">   
+                    <input type="submit" value="crear vacante" class="btn btn-primary" name="crearregistro">
+                    <button class="btn btn-secondary" onclick="history.back()">Volver</button>
+                   </div>
+            </form>
+
+
+
+
+        </div>
+    <div class="card-footer text-muted">       
+
+</div>
+{% endblock %}
+

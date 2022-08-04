@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block title %} Antecedentes {% endblock %}
+{% block contenido %} 
+
+
+<div class="row">
+  <div class="col-xl-6">
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-chart-area me-1"></i>
+              Contactados por WhatsApp
+          </div>
+          <div class="card-body"><canvas id="myAreaChart2" width="100%" height="40"></canvas></div>
+      </div>
+  </div>
+
+  
+  <div class="col-xl-6">
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-chart-bar me-1"></i>
+              Vacantes Gestionadas
+          </div>
+          <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-6">
+      <div class="card mb-4">
+          <div class="card-header">
+              <i class="fas fa-chart-area me-1"></i>
+              Tipo de Cargos
+          </div>
+          <div class="card-body"><canvas id="myPieChart2" width="100%" height="40"></canvas></div>
+      </div>
+  </div>
+
+
+ 
+{% endblock %}

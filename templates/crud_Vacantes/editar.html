@@ -1,0 +1,288 @@
+{% extends "index.html" %}
+{% block title %} EDITAR VACANTE {% endblock %}
+{% block contenido %} 
+{% load humanize %}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">EDITAR VACANTE</h4>  
+    </div>
+<!--****************************************************************************-->
+    
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Datos del contacto</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Datos de la Vacante</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Notas Especiales</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Adjuntos</button>
+    </li>
+  </ul>
+  
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+
+    <!--{{ formulariovc| default:''}}-->
+  
+
+        <!--************************FORMS*******************************-->
+        <form  class="row g-3 needs-validation" novalidate enctype="multipart/form-data" method="post">  
+            {% csrf_token %}
+
+        <!--   <div class="col-md-4">             
+                <label> fecha cierre vacante</label>  
+                <input type="date" class="form-control" name="FechaFin" id="" aria-describedby="helpId" placeholder="FechaFin" value="{{ formulariovc.FechaFin.value | default:''}}">
+            </div>--> 
+          
+
+            <div class="col-md-4">
+                <label> {{formulariovc.Cliente.label}}</label>
+                <select name="Cliente" class="form-select" required="" id=""> 
+                   <option value={{ formulariovc.Cliente}}</option>
+                </select>
+            </div> 
+
+           
+            
+            <div class="col-md-4">
+                <label> Contactos</label>
+                
+                <select name="contactos" class="form-select" required="" id="">
+                    <option selected value={{ formulariovc.contacto}}</option>
+                  <!--  {% for contacto in dircontactos %}
+                        <option value="{{contacto.id}}">{{contacto.Nombre}}</option>
+                    {% endfor %}-->
+                </select>
+            </div> 
+         
+           
+        
+           
+                       
+            <div class="col-md-4">     
+                <label> {{formulariovc.ClienteFinal.label}}</label>        
+                <input type="text" class="form-control" name="ClienteFinal" id="" aria-describedby="helpId" placeholder="ClienteFinal" value="{{ contactos.id.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">   
+                <label> {{formulariovc.CargoSolicitado.label}}</label>            
+                <input type="text" class="form-control" name="CargoSolicitado" id="" aria-describedby="helpId" placeholder="CargoSolicitado" value="{{ formulariovc.CargoSolicitado.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">             
+                <label> {{formulariovc.cantidad.label}}</label>  
+                <input type="number" class="form-control" name="cantidad" id="" aria-describedby="helpId" placeholder="Cantidad" value="{{ formulariovc.cantidad.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Sector.label}}</label>
+                {{formulariovc.Sector}}
+            </div>
+           
+            
+          
+
+            <div class="col-md-4">
+                <label> {{formulariovc.Depto.label}}</label>
+                <select name="Depto" class="form-select" required="" id=""> 
+                   <option selected>Depto</option>
+                   <option value={{ formulariovc.Depto}}</option>
+                </select>
+            </div> 
+
+
+            <div class="col-md-4">
+                <label> {{formulariovc.Ciudad.label}}</label>
+                <select name="Ciudad" class="form-select" required="" id="" placeholder="Ciudad"> 
+                   <option selected>Ciudad</option>
+                   <option value={{ formulariovc.Ciudad}}</option>
+                </select>
+            </div> 
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Genero.label}}</label>
+                {{formulariovc.Genero}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.EdadMinima.label}}</label>
+                <input type="number" class="form-control" name="EdadMinima" id="" aria-describedby="helpId" placeholder="EdadMinima" value="{{ formulariovc.EdadMinima.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.EdadMaxima.label}}</label>
+                <input type="number" class="form-control" name="EdadMaxima" id="" aria-describedby="helpId" placeholder="EdadMaxima" value="{{ formulariovc.EdadMaxima.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Educacion.label}}</label>
+               {{formulariovc.Educacion}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.AreaFormacion.label}}</label>
+                <input type="text" class="form-control" name="AreaFormacion" id="" aria-describedby="helpId" placeholder="AreaFormacion" value="{{ formulariovc.AreaFormacion.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Especializacion.label}}</label>
+                 {{formulariovc.Especializacion}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Certificados.label}}</label>
+                <input type="text" class="form-control" name="Certificados" id="" aria-describedby="helpId" placeholder="Certificados" value="{{ formulariovc.Certificados.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Pase.label}}</label>
+                <input type="text" class="form-control" name="Pase" id="" aria-describedby="helpId" placeholder="Pase" value="{{ formulariovc.Pase.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.MesesExperiencia.label}}</label>
+                <input type="number" class="form-control" name="MesesExperiencia" id="" aria-describedby="helpId" placeholder="MesesExperiencia" value="{{ formulariovc.MesesExperiencia.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.ConocimientoEspecifico.label}}</label>
+                {{formulariovc.ConocimientoEspecifico}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.FuncionesCargo.label}}</label>
+                <input type="" class="form-control" name="FuncionesCargo" id="" aria-describedby="helpId" placeholder="FuncionesCargo" value="{{ formulariovc.FuncionesCargo.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Horario.label}}</label>
+                <input type="text" class="form-control" name="Horario" id="" aria-describedby="helpId" placeholder="Horario" value="{{ formulariovc.Horario.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Presencialidad.label}}</label>
+                {{formulariovc.Presencialidad}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.SitioLabor.label}}</label>
+                <input type="text" class="form-control" name="SitioLabor" id="" aria-describedby="helpId" placeholder="SitioLabor" value="{{ formulariovc.SitioLabor.value | default:''}}">
+            </div>
+           
+                   
+            <div class="col-md-4">               
+                <label> Salario cargo</label>
+                <input type="text" class="form-control" name="Salario" id="" aria-describedby="helpId" placeholder="Salario" value="{{ formulariovc.Salario.value | intcomma}}">
+            </div>
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.Bonos.label}}</label>
+                <input type="text" class="form-control" name="Bonos" id="" aria-describedby="helpId" placeholder="Bonos" value="{{ formulariovc.Bonos.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.SalarioEmocional.label}}</label>
+                <input type="text" class="form-control" name="SalarioEmocional" id="" aria-describedby="helpId" placeholder="SalarioEmocional" value="{{ formulariovc.SalarioEmocional.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.TipoContrato.label}}</label>
+                {{formulariovc.TipoContrato}}
+            </div>
+           
+          
+
+
+        </div>
+        <div class="tab-pane row g-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+              
+            <div class="col-md-4">
+                <label> {{formulariovc.NotaEspecial.label}}</label>
+                {{formulariovc.NotaEspecial}}
+            </div>
+           
+           
+            <div class="col-md-4">               
+                <label> {{formulariovc.Entrevista.label}}</label>
+                {{formulariovc.Entrevista}}
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.direccionEntrevista.label}}</label>
+                <input type="text" class="form-control" name="direccionEntrevista" id="" aria-describedby="helpId" placeholder="DireccionEntrevista" value="{{ formulariovc.direccionEntrevista.value | default:''}}">
+            </div>
+           
+            
+            <div class="col-md-4">               
+                <label> {{formulariovc.EstadoDDR.label}}</label>
+                {{formulariovc.EstadoDDR}}
+            </div>
+           
+            
+            <input name="" id="" class="btn btn-success" type="submit" value="enviar informacion">
+
+
+        </div>
+        </form>
+
+         <!--************************FORMS*******************************-->
+        
+        
+   
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab"> abc </div>
+    <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">{% include 'Crud_Vacantes/archivos.html' %} </div>
+  </div>
+  
+  <script>
+    var firstTabEl = document.querySelector('#myTab li:last-child a')
+    var firstTab = new bootstrap.Tab(firstTabEl)
+  
+    firstTab.show()
+  </script>
+
+<!--****************************************************************************-->
+</div>
+
+
+
+
+   
+{% endblock %}
+
+{% block jsadicional %}
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+   format: 'dd/mm/yyyy',
+    startDate: '-3d'
+  });
+</script>
+
+{% endblock %}

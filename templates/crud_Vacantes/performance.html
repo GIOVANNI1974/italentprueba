@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block title %} pruebas performance {% endblock %}
+{% block contenido %} 
+
+<button type="button" src="https://apps4beyond.com/SSO/#/?mode=prod">ir a la pagina</button>
+<httpProtocol>
+    <customHeaders>
+      <add name="X-Frame-Options" value="SAMEORIGIN" />
+    </customHeaders>
+  </httpProtocol>
+ 
+    <iframe height=100% width=100% src="https://apps4beyond.com/SSO/#/?mode=prod"></iframe>
+   
+       
+ 
+{% endblock %}
+

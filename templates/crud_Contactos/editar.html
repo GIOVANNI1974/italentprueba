@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block title %} EDITAR CONTACTO {% endblock %}
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">EDITAR CONTACTO</h4>  
+    </div>
+    <div class="card-body">
+         
+        <div class="card-header">
+            <button class="btn btn-primary" onclick="history.back()">Volver</button>
+        </div>   
+       
+            {% include 'Crud_Contactos/form.html' %}      
+
+    </div>
+    <div class="card-footer text-muted">       
+    </div>
+</div>
+
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+
+
+
+{% endblock %}
+
+{% block jsadicional %}
+
+<script type="text/javascript">
+    $(function() {
+        $('#ModalContactos').modal('show');
+    });
+    </script>
+
+{% endblock %}

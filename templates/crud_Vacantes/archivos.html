@@ -1,0 +1,100 @@
+{% extends "index.html" %}
+{% block title %} SUBIR ARCHIVOS DE LA VACANTE {% endblock %}
+{% block contenido %} 
+
+
+<div class="card ">
+
+    <div class="row justify-content">
+
+
+    <h1>Subir archivos a la vacante</h1>   
+<div class="card">
+    <form method='POST' action="" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+     
+
+        <div class="form-group col-md-3">
+            <select name="description" class="form-select"">
+                <option value='none'># DDR...</option>
+                    {% for vacante in vacantes %}
+                <option value='{{vacante.id}}'>{{vacante.id}}</option>
+                    {% endfor %}
+            </select>
+        </div><br>
+
+
+
+
+        <div class="form-group col-md-3">
+            <select name="category" class="form-select"">
+                <option value='none'>Tipo Documento...</option>
+                    {% for category in categories %}
+                <option value='{{category.id}}'>{{category.name}}</option>
+                    {% endfor %}
+            </select>
+        </div><br>
+
+        <div class="form-group col-md-3">           
+            <input name="category_new" type="text" placeholder="Crear un nuevo tipo Documento" class="form-control">
+        </div><br>
+
+        <div class="form-group col-md-3">
+            <label>Subir Archivo</label>
+            <input required name="images" type="file" multiple class="form-control-file">
+        </div><br>
+
+        <div class="form-group col-md-3">           
+            <input name="pruebas_link" type="text" placeholder="Link especial" class="form-control">
+        </div><br>
+
+        <div class="modal-footer col-md-3">   
+            <input type="submit" class="btn btn-primary m-3" value="subir archivo" name ="message_frm">
+            <a name="" id="" class="btn btn-secondary" href="/clienteslistar" type="button" value="" data-dismiss="modal">Cancelar</a>       
+        </div>
+       
+
+    </form>
+</div>
+ 
+ 
+<div id="myDIV" class="table-responsive col-md-6" >
+    <table table id="example2" class="table table-sm table-hover">
+    <thead class="table-dark">
+        <tr>
+           
+            <th style="width:10%">DDR</th>
+            <th>Nombre del Archivo</th>           
+            <th>Ver Archivo</th>
+            <th>Link especiales</th>
+        </tr>
+    </thead>
+    <tbody data-grid>
+        {% for campo in archivos %}
+        <tr data-grid-item>
+           
+            <td>{{ campo.vacante}}</td> 
+            <td>{{ campo.categoria }}</td>   
+            <td>
+                <a href="{{ campo.archivo.url }}" target="_blank">VER ARCHIVO </a>                    
+            </td>
+            
+            <td>
+                {% if campo.formularios %}
+                <a href="{{ campo.formularios }}" target="_blank">link </a>    
+                {% endif %}                
+            </td>
+          
+
+        </tr>
+        {% endfor %}  
+    </tbody>
+    </table>
+</div>
+
+    </div>
+</div>
+
+{% endblock %}

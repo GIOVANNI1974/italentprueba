@@ -1,0 +1,175 @@
+{% extends "index.html" %}
+{% block title %} GESTIONAR LA VACANTE {% endblock %}
+{% block contenido %} 
+{% load bootstrap %}
+
+  <div class="container">
+    <h1>Mensajería</h1>
+
+    <div class="row">
+      <div class="col-sm-3 bg-primary">
+        <h5 style="color: white">MENSAJE 1 --Saludo--</h5>
+        <textarea class="form-control" rows="3" id="comment">{{mensaje1}}</textarea>
+      </div>
+
+      <div class="col-sm-4 offset-sm-1 bg-secondary">
+        <h5 style="color: white">MENSAJE 2--Oferta--</h5>
+        <textarea class="form-control" rows="3" id="comment">{{mensaje2}}</textarea>      
+      </div>
+
+      <div class="col-sm-3 offset-sm-1 bg-success ">
+        <h5 style="color: white">MENSAJE 3- Varios --</h5>
+        <textarea class="form-control" rows="3" id="comment">Buen día, mi nombres es xxxx, tus</textarea>
+        <br>
+      </div>
+
+    </div>
+ 
+
+ <br>
+
+
+    <form method="POST" action="" > 
+      {% csrf_token %}
+
+      <div class="card-header row" >
+        <!--<h4 class="card-title" >Gestion de Vacantes</h4> -->	
+        <div class="col-sm-4">
+          <button class="btn btn-primary" type="submit">Seleccionar</button>	
+        </div>	
+       
+        <div class="col-sm-8" align="right">
+
+          <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModal">
+            <img src="{{MEDIA_URL}}/imagenes/whatsapp.gif" width="50" >
+            Enviar mensaje
+          </button>
+          
+            <button class="btn btn-transparent" type="submit" name="wats">	
+            <img src="{{MEDIA_URL}}/imagenes/whatsapp.gif" width="50" >
+            </button>	
+          	
+              <a href="{% url 'candidatocontactabilidad' %}">
+                 <img src="{{MEDIA_URL}}/imagenes/Email.gif" width="50" alt="" srcset="">	
+              </a>
+        </div>		
+
+      </div>
+
+      <table id="" class="table table-stri table-hover">
+        <thead class="table-success" >
+          <tr style="text-align:left">
+            
+            <th>DDR</th>
+            <th>Nombres_Apellidos</th>
+            <th>id</th>                    
+            <th>checkWS</th>
+            <th>Documento</th>
+            <th style="width:10%">estado</th>
+            <th>Hv</th>                    
+            <th>Acciones</th>
+            <th>WS</th>     
+            <th>EM</th>     
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in postulados %}
+          <tr>           
+            <td> {{ order.ddr | title}}</td>  
+            <td> 
+              <a href="#">{{ order.Nombres_Apellidos | title}}</a> 
+            </td> 
+            <td> {{ order.id | title}}</td>   
+            <td> {{ order.checkWS | title }}</td>
+            <td> {{ order.Documento | title}}</td>  
+            <td> {{ order.estado | title}}</td> 
+            <td>
+              {% if order.Curriculum_Hv %}
+              <img src="{{ campo.Curriculum_Hv.url }}" height="20" />  
+              {% endif %}                  
+            </td>
+                        
+            <td><a name="" id="" class="btn btn-primary btn-circle btn-sm" href="#"  role="button">Editar</a>
+              | 
+              <a name="" id="" class="btn btn-danger btn-circle btn-sm" href="#"  role="button">Borrar</a>                   
+            </td> 
+          
+          <!--****************check list wathsapp*********************************-->
+            
+            <td> 
+              {% if order.checkWS %}
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="checked" value= {{order.id}} name="ckWS" >
+              </div>
+              {% else %}
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="ckWS" value={{order.id}} >
+              </div>
+              {% endif %}
+              
+            </td> 
+          <!--******************fin check list wathsapp*****************************-->
+          
+            <!--****************check list email*********************************-->
+            
+            <td> 
+              {% if event.approved %}
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked = "checked" name="checkEM" value={{ order.checkWS }} >
+              </div>
+              {% else %}
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="checkEM" value={{ order.checkWS }} >
+              </div>
+              {% endif %}
+            </td> 
+          <!--******************fin check list email*****************************-->
+
+
+          </tr>
+          {% endfor %}  
+        </tbody>
+      </table>        
+    </form> 
+
+
+   
+
+
+  <!-- Button trigger modal -->
+
+
+<!-- Modal WathsApp -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remitir WathsApp</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        se van a remitir los waths app a los celulares abajo relacionados!!
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-transparent">
+          <a href="{% url 'candidatocontactabilidad' %}">
+            <img src="{{MEDIA_URL}}/imagenes/whatsapp.gif" width="50" >
+         </a>
+            Enviar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- FIN Modal WathsApp -->
+
+<!--Div que encierra el enblock-->
+  </div>
+{% endblock %}
+

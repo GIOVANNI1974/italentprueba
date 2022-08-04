@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+{% block title %} CREAR CLIENTE {% endblock %}
+{% block contenido %} 
+<div class="card">
+        <div class="card-header">
+            <h4 class="card-title">CREAR CLIENTE</h4>  
+        </div>
+    <div class="card-body">
+         
+        <div class="card">
+            <div class="card-header">
+               <a name="" id="" class="btn btn-info" href="{% url 'clienteslistar' %}"  role="button">Volver</a>               
+            </div> 
+            {% include 'Crud_Clientes/form.html' %} 
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+

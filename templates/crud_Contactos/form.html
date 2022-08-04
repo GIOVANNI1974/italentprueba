@@ -1,0 +1,31 @@
+{% load static %}
+
+{% block jsadicional %}
+
+<!--https://www.youtube.com/watch?v=-lftKKGQ0Ao-->
+<!-- Modal -->
+<div class="modal fade" id="ModalContactos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  {% load crispy_forms_tags%}
+ <form class="uniForm col" method="post" action="/contactolistar" enctype="multipart/form-data" >
+   {% csrf_token %}
+ 
+   
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+           
+         </div>
+         <div class="modal-body">
+           {{ formulariocontacto|crispy}}
+         </div>
+         <div class="modal-footer">
+            <input type="submit" value="enviar informacion" class="btn btn-primary">
+            <a name="" id="" class="btn btn-secondary" href="{% url 'contactolistar' %}" type="button" value="">Cancelar</a>
+         </div>
+       </div>
+     </div>
+ </form>
+</div>
+
+{% endblock %}

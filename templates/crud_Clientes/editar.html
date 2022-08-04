@@ -1,0 +1,209 @@
+{% extends "index.html" %}
+{% block title %} EDITAR CLIENTE  {% endblock %}
+{% block contenido %} 
+<div class="card">
+        <div class="card-header">
+            <h4 class="card-title">EDITAR CLIENTE {{formulario.RazonSocial.value}}</h4>  
+        </div>
+    <div class="card-body">         
+        <div class="card">
+
+
+          <p>            
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseOne">Datos</a>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseTwo">Contactos</a>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseThree">Vacantes</a>            
+          </p>
+        
+                
+          <div class="container">
+              <div id="accordion">    
+
+
+              
+                    <!--lo lleva al formulario de Clientes-->
+                    <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+                      <div class="card-body">
+                        {% include 'Crud_Clientes/form.html' %}
+                      </div>
+                    </div>
+                    <br>
+
+                     <!--lo lleva al formulario de contactos-->
+
+                    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">Listado de Contactos</h4>  
+                        </div>
+
+                        <form action="" method="post">
+                          <div class="card-header">                          
+                            {% csrf_token %}                            
+                            <input type="submit" value="Agregar Nuevo Contacto" class="btn btn-success" name="contactocrear"/> 
+                          </div>  
+
+                          <div class="table-responsive">
+                                  <table id="myTable2" class="table table-hover">
+                                      <thead>
+                                          <tr>
+                                              <th>Nombre</th>
+                                              <th>Cargo</th>
+                                              <th>celular</th>
+                                              <th>Email</th>
+                                              <th>Acciones</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for campo in contactos %}
+                                          <tr class="header">
+                                              <td>{{ campo.Nombre}}</td>  
+                                              <td>{{ campo.Cargo}}</td>  
+                                              <td>{{ campo.celular}}</td>  
+                                              <td>{{ campo.Correo}}</td> 
+                                                                                      
+                                            <!--<td><a name="" id="" class="badge bg-primary" href="{% url 'contactoeditar' campo.id%}"  role="button">Editar</a>-->
+                                              <td>
+                                                <a name="" id="" class="badge bg-primary" href="{% url 'contactoeditar' campo.id%}"  role="button">Editar</a>
+                                                <a name="" id="" class="badge bg-danger" href="{% url 'contactoeliminar' campo.id %}"  role="button" onclick="return confirm('desea Continuar?')">Borrar</a>                   
+                                              </td> 
+                                          </tr>
+                                          {% endfor %}  
+                                      </tbody>
+                                  </table>
+                          </div>
+                      </form>
+                    </div>
+                    </div>
+                    <br>
+
+                    <!--lo lleva al formulario de vacantes-->
+                    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">                   
+                      
+                        <div class="card">
+                          <div class="card-header">
+                              <h4 class="card-title">Listado de Vacantes</h4>  
+                          </div>
+                          <div class="card-body">
+                              
+                              <div class="card"  >
+                                  <div class="card-header">
+                                    <form action="" method="post">
+                                      {% csrf_token %}
+                                      
+                                      <input type="submit" value="Agregar Nueva Vacante" class="btn btn-success" name="vacantescrear"/> 
+                                     
+                                    </form> 
+                                  </div>   
+
+                                  <div id="myDIV" class="table-responsive" >
+                                  <table table id="example2" class="table table-sm table-hover">
+                                  <thead class="table-dark">
+                                      <tr>
+                                          <th style="width:2%">DDR</th>
+                                          <th style="width:15%">FechaInicio</th>
+                                          <th>Cliente</th>
+                                          <th>Ciudad</th>
+                                          <th>ClienteFinal</th>
+                                          <th>CargoSolicitado</th>
+                                          <th>Cantidad</th>
+                                          <th>Estado</th>
+                                          <th>Acciones</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody data-grid>
+                                      {% for campo in vacantes %}
+                                      <tr data-grid-item>
+                                          <td>{{ campo.id }}</td>
+                                          <td>{{ campo.FechaInicio}}</td> 
+                                          <td class="first-name">{{ campo.Cliente}}</td>   
+                                          <td class="last-name">{{ campo.Ciudad}}</td>  
+                                          <td class="age">{{ campo.ClienteFinal}}</td>  
+                                          <td>{{ campo.CargoSolicitado}}</td> 
+                                          <td>{{ campo.cantidad}}</td>  
+                                          <td>{{ campo.EstadoDDR}}</td>
+                                                                                                      
+                                          <td><a name="" id="" class="btn btn-primary btn-circle btn-sm" href="{% url 'vacanteeditar' campo.id%}" role="button"><h6 class="display-8">E</h6></a>
+                                              | 
+                                            <a name="" id="" class="btn btn-danger btn-circle btn-sm" href="{% url 'vacanteeliminar' campo.id%}"  role="button" ><h6 class="display-8">B</h6></a>  
+                                            |
+                                            <a name="" id="" class="btn btn-secondary btn-circle btn-sm" href="{% url 'addarchivovacante'%}"  role="button" >Archivo</a> 
+                                            <!--<a name="" id="" class="btn btn-success btn-circle btn-sm" href=""  role="button"><h6 class="display-8">G</h6></a>-->            
+                                          </td> 
+                                      </tr>
+                                      {% endfor %}  
+                                  </tbody>
+                                  </table>
+                              </div>
+                              </div>
+                            
+                          </div>
+                        
+                        </div>
+               
+                    </div>
+                    <br>
+
+              </div>
+          </div>
+
+
+
+
+        </div>  
+    </div>
+
+
+
+      <!-- Modal WathsApp -->
+      <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{contactos.id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!--*********************formulario******************-->
+                <form enctype="multipart/form-data" method="post">  
+                  {% csrf_token %}  
+                  {% for campo in formulariocontacto %}
+                  <div class="mb-3">
+                     
+                      <input 
+                      type="{{ campo.field.widget.input_type }}"
+                      class="form-control" 
+                      name="{{ campo.name }}" 
+                      id="" 
+                      aria-describedby="helpId" 
+                      placeholder="{{ campo.label }}"
+                      value="{{ campo.value | default:''}}"/>
+                  </div>
+                 
+                  {% endfor %}
+                  <input name="" id="" class="btn btn-success" type="submit" value="enviar informacion">
+              </form>
+              <!--*********************fin formulario******************-->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" name="contactoseditar2">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- FIN Modal WathsApp -->
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,44 @@
+
+{% block contenido %} 
+
+<div class="mb-3">
+  <label for="" class="form-label"></label>
+
+  {% load crispy_forms_tags%}
+
+    <form class="uniForm col-md-6" method="POST" action="" enctype="multipart/form-data" >
+      {% csrf_token %}
+      {% crispy formulariovc %}
+    
+      
+
+      <br />
+      <input type="submit" value="enviar informacionxxxx" class="btn btn-success">
+          
+      <!--<a name="" id="" class="btn btn-primary" href="{% url 'vacantelistar' %}" type="button" value="">Cancelar</a>-->
+      <button class="btn btn-primary" onclick="history.back()">Cancelar</button>
+     
+    </form>
+
+ 
+
+    
+   
+</div>
+
+
+
+   
+{% endblock %}
+
+
+{% block jsadicional %}
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+   format: 'dd/mm/yyyy',
+    startDate: '-3d'
+  });
+</script>
+
+{% endblock %}
+

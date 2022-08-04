@@ -1,0 +1,152 @@
+<div class="mb-3">
+  <label for="" class="form-label"></label>
+
+  {% load crispy_forms_tags%}
+
+
+  <!--#********************formulario crear empresa*******************************-->
+  <form id= "myForm" class="uniForm col-md-8" method="post" action="" enctype="multipart/form-data" >
+    {% csrf_token %}
+   <!-- {{ formulario|crispy}}-->
+  
+      <div class="row g-3">     
+        
+     
+           
+          <div class="form-group col-md-6"> 
+              <input type="text" name="nit" required="" id="id_nit" placeholder="Nit *" class="form-control" value="{{ formulario.nit.value | default:''}}">  
+          </div>   
+          <div class="form-group col-md-2"> 
+              <input type="text" name="dv" required="" id="id_dv" placeholder="dv *" class="form-control" value="{{ formulario.dv.value | default:''}}">  
+          </div> 
+          
+          <div class="form-group col-md-8">   
+              <input type="text" name="RazonSocial" maxlength="200" required="" id="id_RazonSocial" placeholder="Razon Social *" class="form-control" value="{{ formulario.RazonSocial.value | default:''}}">  
+           </div>
+
+
+          <div class="form-group col-md-8">
+              <select name="Actividad" class="form-select" required="" id="id_Actividad"> 
+                  <option value={{formulario.Actividad}}</option>                        
+              </select>
+              <!--https://fontawesome.com/icons    Adicionar Sector Economico-->
+              <a name="" id="" href="/clienteslistar" value="" data-toggle="modal" data-target="#exampleModal">
+                   <i class="fa fa-plus-square" style="font-size:30px;color:rgb(0, 255, 85);"></i>
+              </a>
+          </div>
+      
+          <div class="form-group col-md-10">                   
+              <input type="text" name="Direccion" required="" id="id_Direccion" placeholder="Direccion de la empresa" class="form-control" value="{{ formulario.Direccion.value | default:''}}" >  
+          </div> 
+
+          <div class="form-group col-md-3">
+              <select name="Pais" class="form-select" required="" id="id_Pais"> 
+                 <option selected>Pais</option>
+                 <option value={{formulario.Pais}}</option>
+              </select>
+          </div>  
+          
+          <div class="form-group col-md-4">
+              <select name="Depto" class="form-select" required="" id="id_Depto"> 
+                  <option value={{formulario.Depto}}</option>
+              </select> 
+
+          </div>
+          <div class="form-group col-md-3">                   
+             <select name="Ciudad" class="form-select" required="" id="id_Ciudad" placeholder="Telefonos"> 
+                 <option value={{formulario.Ciudad}}</option>
+              </select>
+          </div>  
+
+          <div class="form-group col-md-5">            
+              <input type="text" name="telefonos"  class="form-control" required="" id="id_telefonos" placeholder="Telefonos *" value="{{ formulario.telefonos.value | default:''}}">     
+          </div>    
+
+          <div class="form-group col-md-5"> 
+            <input type="text" name="web" class="form-control" required="" id="id_web" placeholder="WEB *" value="{{ formulario.web.value | default:''}}">  
+          </div>
+
+          
+          <div class="controls">                
+           
+              <input type="file" name="logoEmpresa" accept="image/*" class="clearablefileinput" id="id_logoEmpresa" value="{{ formulario.logoEmpresa.value | default:''}}"> 
+
+                                       
+             
+       
+          </div>
+
+
+          {% if formulario.logoEmpresa.value != 'imagenes/3.png' %}
+          <br/>
+          <div> <p style="font-size:20px;color:rgb(47, 0, 255);"> {{ formulario.logoEmpresa.value | default:''}}</p></div>
+          {% endif %}
+  
+          
+         
+
+
+      </div>
+      <div class="modal-footer col-md-10">
+        <a name="" id="btnTest" class="btn btn-primary">Editar</a>
+       
+          <input type="submit" value="enviar informacion" class="btn btn-primary" name="crearregistro">
+          <a name="" id="" class="btn btn-secondary" href="/clienteslistar" type="button" value="" data-dismiss="modal">Cancelar</a>       
+        </div>
+  </form>
+
+  <!--#*****************fin formulario**********************************-->
+   
+</div>
+
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Sector Economico</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form method="post" action="" enctype="multipart/form-data">  
+          {% csrf_token %}
+          <div class="mb-4">
+              <input type="text" class="form-control" name="Sector" id="" aria-describedby="helpId" placeholder="Sector">
+          </div>
+          <div class="col-12 help-text"></div>
+               <input name="" id="" class="btn btn-primary" type="submit" value="Crear Sector">
+        </form>
+
+      </div>
+ 
+    </div>
+  </div>
+</div>
+
+
+{% block jsadicional %} 
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!--activar o desactivar fomulario edicion cliente-->
+<script>
+    $(document).ready(function(){
+        $("#myForm :input").prop("disabled", true);      
+    }); 
+  var enableButton = (e) => {
+    $("#myForm :input").prop("disabled", false);
+    };
+    $(document).on('click', '#btnTest', enableButton);
+</script>
+
+
+
+{% endblock %}

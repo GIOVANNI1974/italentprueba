@@ -1,0 +1,160 @@
+
+{% extends "index.html" %}
+{% block title %} Registro de Vacantes {% endblock %}
+{% block contenido %} 
+
+<!--*********************LISTAR VACANTES***********************-->
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Listado de Vacantes</h4>  
+    </div>
+    <div class="card-body">
+         
+        <div class="card"  >
+            <div class="card-header">
+               <a name="" id="" class="btn btn-success" href="{% url 'vacantecrear' %}" role="button">Agregar Nueva vacante</a>
+            </div>   
+
+            <div id="myDIV" class="table-responsive" >
+            <table table id="example2" class="table table-sm table-hover">
+            <thead class="table-dark">
+                 <tr>
+                    <th style="width:2%">DDR</th>
+                    <th style="width:15%">FechaInicio</th>
+                    <th>Cliente</th>
+                    <th>Ciudad</th>
+                    <th>ClienteFinal</th>
+                    <th>CargoSolicitado</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody data-grid>
+                {% for campo in vacantes %}
+                <tr data-grid-item>
+                    <td>{{ campo.id }}</td>
+                    <td>{{ campo.FechaInicio}}</td> 
+                    <td class="first-name">{{ campo.Cliente}}</td>   
+                    <td class="last-name">{{ campo.Ciudad}}</td>  
+                    <td class="age">{{ campo.ClienteFinal}}</td>  
+                    <td>{{ campo.CargoSolicitado}}</td> 
+                    <td>{{ campo.cantidad}}</td>  
+                    <td>{{ campo.EstadoDDR}}</td>
+                                                                                
+                    <td><a name="" id="" class="btn btn-primary btn-circle btn-sm" href="{% url 'vacanteeditar' campo.id%}" role="button"><h6 class="display-8">E</h6></a>
+                        | 
+                       <a name="" id="" class="btn btn-danger btn-circle btn-sm" href="{% url 'vacanteeliminar' campo.id%}"  role="button" >Borrar</a>  
+                       <!--<a name="" id="" class="btn btn-success btn-circle btn-sm" href=""  role="button"><h6 class="display-8">G</h6></a>-->            
+                    </td> 
+                </tr>
+                {% endfor %}  
+            </tbody>
+            </table>
+        </div>
+        </div>
+       
+    </div>
+   
+</div>
+
+
+
+{% endblock %}
+
+
+{% block jsadicional %}
+<script>
+ $(document).ready(function () {
+    // Setup - add a text input to each footer cell
+    $('#example2 thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#example2 thead');    
+ 
+    var table = $('#example2').DataTable({
+        "language": {
+            "lengthMenu": "_MENU_ registros"
+            },
+        orderCellsTop: true,
+        fixedHeader: true,
+        pageLength: 10,
+         // configuracion de los check boxes
+        columnDefs: [{
+            targets: 0,             
+                    
+        }],
+        // fin configuracion de los check boxes
+
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns([2,3,4,5,7])
+                .eq(0)
+                .each(function (colIdx) {
+                    // Set the header cell to contain the input element
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    $(cell).html('<input type="text" placeholder="' + title + '" />');
+ 
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('keyup change', function (e) {
+                            e.stopPropagation();
+ 
+                            // Get the search value
+                            $(this).attr('title', $(this).val());
+                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+ 
+                            var cursorPosition = this.selectionStart;
+                            // Search the column for that value
+                            api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+ 
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+        },
+    });
+    var newSearch = $("#example2").DataTable();
+    $("#search").keyup(function(){
+        newSearch.search($(this).val()).draw();
+    })
+
+    //SCRIPT para tomar desde el check el valor de ID*************************
+   // $('#myform').on('submit', function(e){
+  
+    // FIN para tomar el valor de ID************************
+
+});    
+</script>
+{% endblock %}
+
+
+
+<!--
+    solo texto
+
+
+--> 
